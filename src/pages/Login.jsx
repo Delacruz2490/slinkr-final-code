@@ -13,11 +13,13 @@ const Login = () => {
     e.preventDefault();
 
     try {
-      await signInWithEmailAndPassword(auth, email, password);
-      navigate("/dashboard");
-    } catch (error) {
-      alert("Login failed: " + error.message);
-    }
+  await signInWithEmailAndPassword(auth, email, password);
+  console.log("✅ Login successful, redirecting...");
+  navigate("/dashboard");
+} catch (error) {
+  alert("Login failed: " + error.message);
+}
+
   };
 
   return (

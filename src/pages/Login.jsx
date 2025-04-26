@@ -13,9 +13,10 @@ const Login = () => {
     e.preventDefault();
 
     try {
-  await signInWithEmailAndPassword(auth, email, password);
-  console.log("✅ Login successful, redirecting...");
-  navigate("/dashboard");
+  const userCredential = await signInWithEmailAndPassword(auth, email, password);
+console.log("✅ Logged in user:", userCredential.user);
+navigate("/dashboard");
+
 } catch (error) {
   alert("Login failed: " + error.message);
 }

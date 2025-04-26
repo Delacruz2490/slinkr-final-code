@@ -21,8 +21,6 @@ function App() {
           <Route path="/" element={<LandingPage />} />
           <Route path="/login" element={<Login />} />
           <Route path="/dashboard" element={<Dashboard />} />
-          
-          {/* Tools Routes */}
           <Route path="/message-rewriter" element={<MessageRewriter />} />
           <Route path="/stealth-post" element={<StealthPostTool />} />
           <Route path="/karma-farmer" element={<KarmaFarmer />} />

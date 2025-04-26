@@ -1,34 +1,31 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { getAuth, signInWithEmailAndPassword, onAuthStateChanged } from "firebase/auth";
+import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
 import { app } from "../firebase/config";
+import { useAuth } from "../auth/AuthContext";
 
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
   const auth = getAuth(app);
+  const { user } = useAuth();
 
   useEffect(() => {
-    const unsubscribe = onAuthStateChanged(auth, (user) => {
-      if (user) {
-        console.log("🟢 Already logged in:", user.email);
-        navigate("/dashboard");
-      }
-    });
-    return () => unsubscribe();
-  }, []);
+    if (user) {
+      console.log("✅ Already logged in, redirecting...");
+      navigate("/dashboard");
+    }
+  }, [user, navigate]);
 
   const handleLogin = async (e) => {
     e.preventDefault();
 
     try {
       await signInWithEmailAndPassword(auth, email, password);
-      console.log("✅ Login successful, redirecting...");
-      navigate("/dashboard");
+      console.log("✅ Login successful");
     } catch (error) {
       alert("Login failed: " + error.message);
-      console.error("❌ Firebase error:", error);
     }
   };
 

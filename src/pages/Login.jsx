@@ -1,23 +1,48 @@
-import React from "react";
+import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
+import { app } from "../firebase/config";
 
 const Login = () => {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const navigate = useNavigate();
+  const auth = getAuth(app);
+
+  const handleLogin = async (e) => {
+    e.preventDefault();
+
+    try {
+      await signInWithEmailAndPassword(auth, email, password);
+      navigate("/dashboard");
+    } catch (error) {
+      alert("Login failed: " + error.message);
+    }
+  };
+
   return (
-    <div className="flex flex-col items-center justify-center h-screen text-white">
-      <h2 className="text-3xl font-bold mb-6">Login to Slinkr</h2>
-      <form className="flex flex-col gap-4 w-80">
+    <div className="flex flex-col items-center justify-center h-screen bg-white">
+      <form
+        onSubmit={handleLogin}
+        className="bg-white p-6 rounded-lg shadow-md w-full max-w-md"
+      >
         <input
           type="email"
           placeholder="Email"
-          className="p-2 rounded bg-gray-800 border border-gray-700"
+          className="w-full mb-4 p-3 border rounded bg-slate-100"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
         />
         <input
           type="password"
           placeholder="Password"
-          className="p-2 rounded bg-gray-800 border border-gray-700"
+          className="w-full mb-4 p-3 border rounded bg-slate-100"
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
         />
         <button
           type="submit"
-          className="bg-purple-600 py-2 rounded hover:bg-purple-700"
+          className="w-full bg-purple-600 text-white py-3 rounded hover:bg-purple-700"
         >
           Login
         </button>

@@ -5,7 +5,7 @@ import LandingPage from "./pages/LandingPage";
 import Login from "./pages/Login";
 import Dashboard from "./pages/Dashboard";
 
-import MessageRewriter from "./tools/MessageRewriter";
+import MessageRewriter from "./tools/MessageRewriter.jsx";
 import StealthPostTool from "./tools/StealthPostTool";
 import KarmaFarmer from "./tools/KarmaFarmer";
 import InboxManager from "./tools/InboxManager";
